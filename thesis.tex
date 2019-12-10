@@ -6,7 +6,7 @@
 
 % 取消目录中链接的颜色，方便打印
 % 如需颜色，请将“false”改为“true”
-\hypersetup{colorlinks=true}
+\hypersetup{colorlinks=false}
 
 % 这里几行代码使得目录中的“第几章” 和后面的章节名称不致发生重叠
 \makeatletter
@@ -24,15 +24,16 @@
 \newcommand{\ppll}{逐像素链表}
 \newcommand{\stc}{立体一致的}
 
-\newcommand{\con}{显式轮廓线}
-\newcommand{\scon}{隐式轮廓线}
-\newcommand{\conp}{显式轮廓点}
-\newcommand{\sconp}{隐式轮廓点}
+\newcommand{\con}{轮廓线}
+\newcommand{\scon}{暗示性轮廓线}
+\newcommand{\conp}{轮廓点}
+\newcommand{\sconp}{暗示性轮廓点}
 
 \newcommand{\vd}{视点相关}
 \newcommand{\vid}{视点无关}
 \newcommand{\vdl}{\vd{线}}
 \newcommand{\vidl}{\vid{线}}
+\newcommand{\vdp}{\vd{点}}
 
 % \usepackage{graphicx}
 % \usepackage{geometry}
@@ -138,14 +139,15 @@
 % 学号
 \PersonalID{21721091}
 
-\title{立体一致的轮廓线的实时绘制}
+\title{立体一致的视点相关线的实时绘制}
 % 如果标题一行写不下，就写成两行，在下面的命令里写第二行，不需要两行则注释掉
-% \titletl{——东方视角分析}
+% \titletl{\scon{}的实时绘制}
 
 %英文题目
-\Etitle{Real-Time Rendering of Stereo-Consistent}
+\Etitle{Real-Time Rendering of Stereo-}
 % 如果一行写不下，同中文题目设定，一行写不下则写两行，不需要就注释掉
-\Etitletl{Contours and Suggestive Contours}
+\Etitletl{Consistent View-Dependent Lines}
+% \Etitletl{Contours and Suggestive Contours}
 % \Etitletll{An Oriental View}
 
 % 作者

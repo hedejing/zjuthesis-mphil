@@ -21,7 +21,7 @@
 % \cite{appel1967notion}
 % \cite{DFRS03}
 % \cite{INR04}
-\chapter{\stc{}轮廓线的概念与推导}
+\chapter{\epsl{}的概念与推导}
 
 \begin{figure}[tbh]
     \centering
@@ -44,21 +44,23 @@
 
 \section{\epsl{}}
 
-\epsl{}的定义如下：假设$L$和$R$分别表示左眼和右眼，$P_L$和$P_R$分别表示对应的轮廓点（\autoref{fig:slidability}）。当视点$E$从$L$向$R$移动，对应的轮廓点也应该从$P_L$向$P_R$移动，它在物体集合表面上移动的曲线称为对极曲线\cite{geiger1995occlusions}。如果对极曲线上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$就是\epslb{}的（\autoref{fig:slidability}(a)）。否则，如果对极曲线上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$不是\epslb{}的，不能和对应的轮廓点形成正确的立体视觉（\autoref{fig:slidability}(b)），因此该轮廓点应该在双目绘制的最终结果中被消去。
+\epsl{}的定义如下：以\con{}为例，假设$L$和$R$分别表示左眼和右眼，$P_L$和$P_R$分别表示对应的轮廓点（\autoref{fig:slidability}）。当视点$E$从$L$向$R$移动，对应的轮廓点也应该从$P_L$向$P_R$移动，它在物体集合表面上移动的曲线称为对极曲线\cite{geiger1995occlusions}。如果对极曲线上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$就是\epslb{}的（\autoref{fig:slidability}(a)）。否则，如果对极曲线上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$不是\epslb{}的，不能和对应的轮廓点形成正确的立体视觉（\autoref{fig:slidability}(b)），因此该轮廓点应该在双目绘制的最终结果中被消去。
  
-\citeauthor{kim2013stereoscopic}在他们的工作上提出了一种对$P_L$的\epsl{}进行检验的方法。具体来说，他们的方法首先在两眼之间插入多个视点并连续地在这些视点上绘制出几何模型的轮廓线。当所有相邻的轮廓点，例如\autoref{fig:slidability}(a)中的$x_i$和$x_{i+1}$，都在一定的区间范围内，那么就$P_L$就是\epslb{}的轮廓点。
+\citeauthor{kim2013stereoscopic}在他们的工作上提出了一种对$P_L$的\epsl{}进行检验的方法。具体来说，他们的方法首先在两眼对应的视点之间插入多个视点并连续地在这些视点上绘制出几何模型的轮廓线。当所有相邻的轮廓点，例如\autoref{fig:slidability}(a)中的$x_i$和$x_{i+1}$，都在一定的区间范围内，那么就$P_L$就是\epslb{}的轮廓点。
+
+需要特别指出的是，以上定义和方法使用\con{}为例进行表述，但是以上定义和方法对于\scon{}也同样成立。在下文的讨论中，如无特别说明，本文也会以\con{}为例进行表述。
 
 \section{\epsl{}的推论}
 
-本文提出的方法拓展了\epsl{}的概念并提出了一个推论：要判定\epsl{}，可以通过检查$P_L$到$P_R$的轮廓点的对应视点的轨迹来完成，不需要在$L$和$R$之间采样多个视点进行繁重的计算\cite{kim2013stereoscopic}。
+本文提出的方法拓展了\epsl{}的概念并提出了一个推论：要判定\epsl{}，可以通过检查$P_L$到$P_R$的轮廓点的对应视点的轨迹来完成，不需要在$L$和$R$之间采样多个视点进行繁重的计算。
 
 本文提出的方法的出发点如\autoref{fig:inverse_slidability}所示。假设一个轮廓点$x$沿着$P_L$到$P_R$的对极曲线移动，如果$P_L$是\epslb{}的，那么$x$对应的视点会单调地从$L$移动到$R$（\autoref{fig:inverse_slidability}(a)）。如果$P_L$不是\epslb{}的，那么对应的视点$E$不会在到达$R$之前保持一直朝着$R$移动（\autoref{fig:inverse_slidability}(b)）。
 
-下面将分别对\con{}和\scon{}用明确的数学语言给出有关\epsl{}的推论。
+下面分别对\con{}和\scon{}用明确的数学语言给出有关\epsl{}的推论。
 
 \subsection{\con{}}
 
-基于上述的想法，对\epsl{}的检验可以转化为对对应视点的运动轨迹的单调性的检验。具体而言，假设有一个在对极曲线上移动的\conp{}$x$，对应的将其视为\conp{}的视点$E$可以用如下的公式计算：
+基于上述的想法，对\epsl{}的判定可以转化为对对应视点的运动轨迹的单调性的检测。具体而言，假设有一个在对极曲线上移动的\conp{}$x$，对应的将其视为\conp{}的视点$E$可以用如下的公式计算：
 
 \begin{equation}\label{eq:viewpoint2}
     {(E - P)}\cdot{N} = 0
@@ -78,7 +80,7 @@
 t = \frac{(P-L)\cdot{N}}{(R-L)\cdot{N}}
 \end{equation}
 
-\autoref{eq:t1}表示$t$是一个关于表面点$x$的函数。当$x$沿着对极曲线运动，$t(x)$就是\conp{}$x$的对应视点的轨迹函数。为了将不同的轨迹函数区分开来，本文使用$t_c(x)$来表示\conp{}的对应视点的轨迹函数，用$t_s(x)$来表示下文将要阐述的\sconp{}的对应的视点的轨迹函数，并用$t(x)$来对以上两种轨迹函数进行合称。
+\autoref{eq:t1}表示$t$是一个关于表面点$x$的函数。当$x$沿着对极曲线运动，$t(x)$就是轮廓点$x$的对应视点的轨迹函数。为了将不同的轨迹函数区分开来，本文使用$t_c(x)$来表示\conp{}的对应视点的轨迹函数，用$t_s(x)$来表示下文将要阐述的\sconp{}的对应的视点的轨迹函数，并用$t(x)$来对以上两种轨迹函数进行合称。
 
 为了进一步讨论轨迹函数$t_c(x)$的单调性，本文将$t_c(x)$的导数形式计算如下：
 
@@ -88,7 +90,7 @@ t = \frac{(P-L)\cdot{N}}{(R-L)\cdot{N}}
     % \end{split}
 \end{equation}
 
-为了表达方式上的简洁，本文将\autoref{eq:derivative}中两边的$x$隐去。基于此公式，可以通过$t_c'(x)=0$找到极值点，从而判定轨迹函数的单调性在何时被破坏。该公式还可以作进一步的简化，使得计算起来更加简单。下面从$P(x)$和$N(x)$开始进一步的推导。
+为了表达上的简洁，本文将\autoref{eq:derivative}中两边的$x$隐去。基于此公式，可以通过$t_c'(x)=0$找到极值点，从而判定轨迹函数的单调性在何时被破坏。该公式还可以作进一步的简化，使得计算起来更加简单。下面从$P(x)$和$N(x)$开始进一步的推导。
 
 \begin{figure}[bth]
     \centering
@@ -164,7 +166,7 @@ t_c' & = \frac{C|P-L||N|\sin\alpha|R-L||N|\cos\beta-C|R-L||N|\sin\beta|P-L||N|\c
   D_w\kappa_r &> 0 \label{eq:DwKr} 
 \end{align}
 
-其中$\kappa_r$表示表面上一点的径向曲率（radial curvature），$D_w\kappa_r$表示$\kappa_r$的方向导数。更确切地说，$\kappa_r$是视线方向$V$在切平面上的投影$W$的方向上的法向曲率。法向曲率以及方向导数的概念已经在\autoref{sec:diff_geo}中进行说明，在此不再赘述。$\kappa_r$可以用以下形式表示为关于主曲率（principal curvature）和$W$的函数：
+其中$\kappa_r$表示表面上一点的径向曲率，$D_w\kappa_r$表示$\kappa_r$的方向导数。更确切地说，$\kappa_r$是视线方向$V$在切平面上的投影$W$的方向上的法向曲率。法向曲率以及方向导数的概念已经在\autoref{sec:diff_geo}中进行说明，在此不再赘述。$\kappa_r$可以用以下形式表示为关于主曲率（principal curvature）和$W$的函数：
 
 \begin{equation}\label{eq:normal curvature}
     \kappa_r = \kappa_1cos^2\phi+\kappa_2sin^2\phi
@@ -190,7 +192,7 @@ t_c' & = \frac{C|P-L||N|\sin\alpha|R-L||N|\cos\beta-C|R-L||N|\sin\beta|P-L||N|\c
 
 该公式表示了\scon{}的对应视点的轨迹函数，也就是$t_s(x)$。同样地，基于$t_s(x)$可以计算出极值点从而对\scon{}的\epsl{}进行判定。然而，与\con{}不同的是，对于每个\sconp{}会有两个对应的视点将其视为\sconp{}，所以$t_s(x)$是一个多值函数（multivalued function）。关于\scon{}的极值点的计算细节将在\ref{sec:suggestive_contour_algorithm}中进一步阐述。
 
-需要特别指出的是，关于$t_s(x)$的推导是建立在$\kappa_1\kappa_2 \leq 0$的假设的前提下的，另一个条件$D_w\kappa_r>0$还没有考虑在内。再者，在实际实现中，还会用以下的条件来进一步限制\scon{}的出现范围：
+另外，关于$t_s(x)$的推导是建立在$\kappa_1\kappa_2 \leq 0$的假设的前提下的，另一个条件$D_w\kappa_r>0$还没有考虑在内。再者，在实际实现中，还会用以下的条件来进一步限制\scon{}的出现范围：
 
 \begin{equation}\label{eq:cosNdotV}
   cos^{-1}(N\cdot{V}) > \theta_c 
