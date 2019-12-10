@@ -41,7 +41,7 @@
 % longnamesfirst参数用于处理长人名顺序，将first name排前面，用于外国人名
 % square参数，引用标号用方括号括起
 % super参数，引用标号为上标格式
-\RequirePackage[sort&compress,longnamesfirst,square,super]{natbib}
+% \RequirePackage[sort&compress,longnamesfirst,square,super]{natbib}
 % 设置图片，表格头字体选项。间距10pt，字号为小字号，标题与题目间距1个字符
 \RequirePackage[margin=10pt,font={small},labelsep=quad]{caption}
 % 粗线型表格以及表格着色需要的扩展包
@@ -71,22 +71,25 @@
 % 文档开始导入默认配置
 \AtBeginDocument{\makeatletter\input{ZJUthesis.cfg}\makeatother}
 % 奇数页左边边距是1.5cm
-\oddsidemargin -0.14 true cm
+% \oddsidemargin -0.14 true cm
 % 偶数页的左边距设置则分双面模式与单面模式两种情况
-\if@twoside
-  \evensidemargin -0.34 true cm
-\else
-  \evensidemargin -0.14 true cm
-\fi
-% 设置页头空白尺寸
-\topmargin -0.74 true cm
-\headheight 0.8 true cm
-\headsep 0.5 true cm
-\topsep 0.7 true cm
-\textheight 23.9 true cm
-\textwidth 16.6 true cm
-\footskip 0.9 true cm
-\parskip 0.5ex plus 0.25ex minus 0.25ex
+% \if@twoside
+%   \evensidemargin -0.34 true cm
+% \else
+%   \evensidemargin -0.14 true cm
+% \fi
+% % 设置页头空白尺寸
+% \topmargin -0.74 true cm
+% \headheight 0.8 true cm
+% \headsep 0.5 true cm
+% \topsep 0.7 true cm
+% \textheight 23.9 true cm
+% \textwidth 16.6 true cm
+% \footskip 0.9 true cm
+% \parskip 0.5ex plus 0.25ex minus 0.25ex
+% 页边距设置浙大计院要求左右均为31mm
+\usepackage{geometry}
+\geometry{a4paper,left=3.1cm,right=3.1cm,top=3.7cm,bottom=3.7cm}
 % cleardoublepage这个命令的定义
 \def\cleardoublepage{%
   \clearpage
@@ -126,6 +129,32 @@
   \else
     \chapter{#1}%
   \fi}
+
+%字体补丁测试
+% ctex-xecjk-winfonts.def: Windows 的 xeCJK 字体设置，默认为六种中易字体
+% vim:ft=tex
+
+% \setCJKmainfont[BoldFont={SimHei},ItalicFont={KaiTi}]
+%   {SimSun}
+% \setCJKsansfont{SimHei}
+% \setCJKmonofont{FangSong}
+\setCJKmainfont{SimSun}[AutoFakeBold,ItalicFont=KaiTi]
+% \setCJKmainfont[AutoFakeBold]{songti}
+
+% \setCJKfamilyfont{zhsong}{SimSun}
+% \setCJKfamilyfont{zhhei}{SimHei}
+% \setCJKfamilyfont{zhkai}{KaiTi}
+% \setCJKfamilyfont{zhfs}{FangSong}
+\setCJKfamilyfont{zhli}{LiSu}
+% \setCJKfamilyfont{zhyou}{YouYuan}
+
+% \newcommand*{\songti}{\CJKfamily{zhsong}} % 宋体
+% \newcommand*{\heiti}{\CJKfamily{zhhei}}   % 黑体
+% \newcommand*{\kaishu}{\CJKfamily{zhkai}}  % 楷书
+% \newcommand*{\fangsong}{\CJKfamily{zhfs}} % 仿宋
+\newcommand*{\lishu}{\CJKfamily{zhli}}    % 隶书
+\newcommand*{\youyuan}{\CJKfamily{zhyou}} % 幼圆
+
 
 % 下划线的一个定义
 \def\ZJU@underline[#1]#2{%
@@ -198,58 +227,55 @@
 % 制作封面的命令
 \newcommand\makeCoverPage{%
   % 这个地方写的是封面上的分类号与学号，字体字号可以更改
-  \pagenumbering{alph}
+  % \pagenumbering{alph}
   %\cleardoublepage
   \thispagestyle{empty}
   {
     \songti\zihao{-4}
-    \linespread{1.3}
+    \linespread{2}
     \begin{center}
-      {\hspace{2em}
-      \ZJU@label@classification~
-      \ZJUunderline[90pt]{\ZJU@value@classification}
+      % {\hspace{2em}
+      % \ZJU@label@classification~
+      % \ZJUunderline[90pt]{\ZJU@value@classification}
+      % \hfill
+      % \ZJU@label@serialnumber~
+      % \ZJUunderline[60pt]{\ZJU@value@serialnumber} \\
+      % \vspace{3pt}
       \hfill
-      \ZJU@label@serialnumber~
-      \ZJUunderline[60pt]{\ZJU@value@serialnumber} \\
-      \vspace{3pt}
-      \ifx\ZJU@value@IsSecret\undefined
-      \else
-        \hspace{2em}
-        \ZJU@label@SecretLevel~
-        \ZJUunderline[90pt]{\ZJU@value@SecretLevel}
-      \fi
-      \hfill
-      \ZJU@label@PersonalID~
-      \ZJUunderline[60pt]{\ZJU@value@PersonalID}\\
-      }
+      \ZJU@label@SecretLevel~
+      \ZJUunderline[45pt]{\ZJU@value@SecretLevel}\\
+      % \hfill
+      % \ZJU@label@PersonalID~
+      % \ZJUunderline[60pt]{\ZJU@value@PersonalID}\\
+      
       % 这个尺寸可以更改
       \vspace{10mm}
       % 浙江大学四个字
-      \includegraphics[width=60.3mm]{./CoverPagepic/ZJDX.pdf}
+      \includegraphics[width=83.5mm]{./CoverPagepic/ZJDX.pdf}
 
       % 这个尺寸可以更改
-      \vspace{4mm}
+      \vspace{10mm}
       %% \ZJU@value@school \\  \zihao{-1}
       % 这个博士学位论文在def文件中已有，当然在tex文件中还可以更改
-      \centerline{\songti \zihao{-1}{\ZJU@value@degree\ZJU@label@thesis} }
+      \centerline{\songti \zihao{-1}{硕\ \ \  士\ \ \  学\ \ \  位\ \ \  论\ \ \  文}}
       % 这个尺寸可以更改
-      \vspace{4mm}
+      \vspace{10mm}
       % 这个地方调入浙大徽标
-      \includegraphics[width=22.8mm]{./CoverPagepic/QSY.pdf}    \\
+      \includegraphics[width=29.6mm]{./CoverPagepic/QSY.pdf}    \\
 
-      \vspace{20mm}
+      \vspace{10mm}
 
       % 论文题目部分内容，可以修改
       \begin{tabular}{rl}
-        {\bfseries\fangsong\zihao{3}\ZJU@label@title:}
+        {\songti\zihao{2}\ZJU@label@title:}
         &
-        \bfseries\fangsong\zihao{-2} \ZJUunderline[260pt]{\ZJU@value@title} \\[3mm]
+        \songti\zihao{-2} \ZJUunderline[260pt]{\ZJU@value@title} \\[3mm]
         &
         % 这个地方是做第二行标题的判断，如果标题一行写不下，有第二行则显示，否则不显示
         \ifx\ZJU@value@titletl\undefined
           \hfil
         \else
-          {\bfseries\fangsong\zihao{-2}\ZJUunderline[260pt]{\ZJU@value@titletl}}
+          {\songti\zihao{-2}\ZJUunderline[260pt]{\ZJU@value@titletl}}
         \fi \\[4mm]
          % {\bfseries\fangsong\zihao{3}\ZJU@label@Etitle:}
          % &
@@ -265,33 +291,34 @@
       % 这个距离可以修改
       \vspace{15mm}
       % 左右两边字体不同，定义两个宏AB来简化代码，这个功能用到了array宏包
-      \newcolumntype{A}{>{\songti}r<{}}
-      \newcolumntype{B}{>{\fangsong}l<{}}
+      \newcolumntype{A}{>{\songti}l<{}}
+      \newcolumntype{B}{>{\songti}l<{}}
       \zihao{4}
-      \begin{tabular}{A@{: }B}
-        \ZJU@label@author & \ZJUunderline[200pt]{\ZJU@value@author} \\[3mm]
-        \ZJU@label@supervisor & \ZJUunderline[200pt]{\ZJU@value@supervisor} \\[3mm]
+      \begin{tabular}{AB}
+        \ZJU@label@author: & \ZJUunderline[200pt]{\ZJU@value@author} \\[3mm]
+        \ZJU@label@supervisor: & \ZJUunderline[200pt]{\ZJU@value@supervisor} \\[3mm]
         % 判断有没有合作导师
-        \ifx\ZJU@value@cpsupervisor\undefined
-        \else
-         \ZJU@label@cpsupervisor
-        \fi
-        &
-        \ifx\ZJU@value@cpsupervisor\undefined
-        \hfil\\[-7.7mm]
-        \else
-          \ZJUunderline[200pt]{\ZJU@value@cpsupervisor} \\[3mm]
-        \fi
-        \ZJU@label@major & \ZJUunderline[200pt]{\ZJU@value@major} \\[3mm]
-        \ZJU@label@researchdm & \ZJUunderline[200pt]{\ZJU@value@researchdm} \\[3mm]
-        \ZJU@label@institute & \ZJUunderline[200pt]{\ZJU@value@institute} \\
+        % \ifx\ZJU@value@cpsupervisor\undefined
+        % \else     
+        %  \ZJU@label@cpsupervisor
+        % \fi
+        % &
+        % \ifx\ZJU@value@cpsupervisor\undefined
+        % \hfil\\[-7.7mm]
+        % \else
+        %   \ZJUunderline[200pt]{\ZJU@value@cpsupervisor} \\[3mm]
+        % \fi
+        \ZJU@label@major: & \ZJUunderline[200pt]{\ZJU@value@major} \\[3mm]
+        % \ZJU@label@researchdm & \ZJUunderline[200pt]{\ZJU@value@researchdm} \\[3mm]
+        \ZJU@label@institute: & \ZJUunderline[200pt]{\ZJU@value@institute} \\[3mm]
+        \ZJU@label@submitdate: & \ZJUunderline[200pt]{\ZJU@value@submitdate}\\
       \end{tabular}
     \end{center}
     % 插入适当的空白
-    \vfill
-    % 最后一项 论文提交日期
-    \hfil{\bfseries\songti\zihao{-3}\hspace{4em}\ZJU@label@submitdate%
-    \ZJUunderline[150pt]{\ZJU@value@submitdate}}\hfil
+    % \vfill
+    % % 最后一项 论文提交日期
+    % \hfil{\bfseries\songti\zihao{-3}\hspace{4em}\ZJU@label@submitdate%
+    % \ZJUunderline[150pt]{\ZJU@value@submitdate}}\hfil
   }
 }
 
@@ -303,34 +330,36 @@
   \thispagestyle{empty}
   {
     \songti\zihao{-4}
-    \linespread{1.3}
+    \linespread{2}
 	\begin{center}
 	  % 这个尺寸可以更改
       \vspace{10mm}
 
       %% \ZJU@value@school \\  \zihao{-1}
       % 这个博士学位论文在def文件中已有，当然在tex文件中还可以更改
-      \centerline{\songti \zihao{-2}{\ZJU@label@Ethesisu}}
-	  \centerline{\songti \zihao{-2}{\ZJU@label@Ethesisd}}
-	  \centerline{\songti \zihao{-2}{\ZJU@value@Edegree}}
+      \centerline{\songti \zihao{2}{\ZJU@label@Ethesisu}}
+      \vspace{5mm} 
+	    \centerline{\songti \zihao{2}{\ZJU@label@Ethesisd}}
+      \vspace{5mm} 
+	    \centerline{\songti \zihao{2}{\ZJU@value@Edegree}}
       % 这个尺寸可以更改
       \vspace{20mm}
       % 这个地方调入浙大徽标
-      \includegraphics[width=22.8mm]{./CoverPagepic/QSY.pdf}
+      \includegraphics[width=29.6mm]{./CoverPagepic/QSY.pdf}
 
-      \vspace{30mm}
+      \vspace{20mm}
 
       % 论文题目部分内容，可以修改
       \begin{tabular}{rl}
-        {\bfseries\fangsong\zihao{3}\ZJU@label@Etitle:}
+        {\songti \zihao{2}\ZJU@label@Etitle:}
         &
-        {\bfseries\zihao{-2}\ZJUunderline[310pt]{\ZJU@value@Etitle}}\\[3mm]
+        {\songti \zihao{2}\ZJUunderline[310pt]{\ZJU@value@Etitle}}\\[3mm]
         &
         %英文标题的多行判断，如果一行写不下，有第二行显示，否则不显示第二行
         \ifx\ZJU@value@Etitletl\undefined
           \hfil
         \else
-          {\bfseries\zihao{-2}\ZJUunderline[310pt]{\ZJU@value@Etitletl}}
+          {\songti \zihao{2}\ZJUunderline[310pt]{\ZJU@value@Etitletl}}
         \fi\\[3mm]
 		%英文标题的多行判断，如果两行写不下，有第三行显示，否则不显示第三行
 		&
@@ -341,35 +370,55 @@
         \fi\\[3mm]
       \end{tabular}
       % 这个距离可以修改
-      \vspace{30mm}
+      \vspace{15mm}
       % 左右两边字体不同，定义两个宏AB来简化代码，这个功能用到了array宏包
-      \newcolumntype{A}{>{\songti}r<{}}
-      \newcolumntype{B}{>{\fangsong}l<{}}
-      \zihao{4}
-      \begin{tabular}{A@{：}B}
-        \ZJU@label@Eauthor & \ZJUunderline[200pt]{\ZJU@value@Eauthor} \\[3mm]
-        \ZJU@label@Esupervisor & \ZJUunderline[200pt]{\ZJU@value@Esupervisor} \\[3mm]
+      \newcolumntype{A}{>{\songti}l<{}}
+      \newcolumntype{B}{>{\songti}l<{}}
+      \zihao{3}
+      \begin{tabular}{AB}
+        \ZJU@label@Eauthor:& \ZJUunderline[230pt]{\ZJU@value@Eauthor} \\[3mm]
+        \ZJU@label@Esupervisor: & \ZJUunderline[230pt]{\ZJU@value@Esupervisor} \\[3mm]
         % 判断有没有合作导师
-        \ifx\ZJU@value@Ecpsupervisor\undefined
-        \else
-         \ZJU@label@Ecpsupervisor
-        \fi
-        &
-        \ifx\ZJU@value@Ecpsupervisor\undefined
-        \hfil\\[-7.7mm]
-        \else
-          \ZJUunderline[200pt]{\ZJU@value@Ecpsupervisor} \\[3mm]
-        \fi
-        \ZJU@label@Emajor & \ZJUunderline[200pt]{\ZJU@value@Emajor} \\[3mm]
-        \ZJU@label@Eresearchdm & \ZJUunderline[200pt]{\ZJU@value@Eresearchdm} \\[3mm]
-        \ZJU@label@Einstitute & \ZJUunderline[200pt]{\ZJU@value@Einstitute} \\
-      \end{tabular}
+        % \ifx\ZJU@value@Ecpsupervisor\undefined
+        % \else
+        %  \ZJU@label@Ecpsupervisor
+        % \fi
+        % &
+        % \ifx\ZJU@value@Ecpsupervisor\undefined
+        % \hfil\\[-7.7mm]
+        % \else
+        %   \ZJUunderline[200pt]{\ZJU@value@Ecpsupervisor} \\[3mm]
+        % \fi
+        \ZJU@label@Emajor: & \ZJUunderline[230pt]{\ZJU@value@Emajor} \\[3mm]
+        % \ZJU@label@Eresearchdm & \ZJUunderline[200pt]{\ZJU@value@Eresearchdm} \\[3mm]
+        \ZJU@label@Einstitute: & \ZJUunderline[230pt]{\ZJU@value@Einstitute} \\[3mm]
+        \ZJU@label@Esubmitdate: & \ZJUunderline[230pt]{\ZJU@value@Esubmitdate} \\
+    \end{tabular}
+      % \begin{tabular}{A@{：}B}
+      %   \ZJU@label@Eauthor & \ZJUunderline[200pt]{\ZJU@value@Eauthor} \\[3mm]
+      %   \ZJU@label@Esupervisor & \ZJUunderline[200pt]{\ZJU@value@Esupervisor} \\[3mm]
+      %   % 判断有没有合作导师
+      %   % \ifx\ZJU@value@Ecpsupervisor\undefined
+      %   % \else
+      %   %  \ZJU@label@Ecpsupervisor
+      %   % \fi
+      %   % &
+      %   % \ifx\ZJU@value@Ecpsupervisor\undefined
+      %   % \hfil\\[-7.7mm]
+      %   % \else
+      %   %   \ZJUunderline[200pt]{\ZJU@value@Ecpsupervisor} \\[3mm]
+      %   % \fi
+      %   \ZJU@label@Emajor & \ZJUunderline[200pt]{\ZJU@value@Emajor} \\[3mm]
+      %   % \ZJU@label@Eresearchdm & \ZJUunderline[200pt]{\ZJU@value@Eresearchdm} \\[3mm]
+      %   \ZJU@label@Einstitute & \ZJUunderline[200pt]{\ZJU@value@Einstitute} \\[3mm]
+      %   \ZJU@label@Esubmitdate & \ZJUunderline[200pt]{\ZJU@value@Esubmitdate} \\
+      % \end{tabular}
     \end{center}
     % 插入适当的空白
-    \vfill
-    % 最后一项 论文提交日期
-    \hfil{\bfseries\songti\zihao{-3}\hspace{4em}\ZJU@label@Esubmitdate%
-    \ZJUunderline[150pt]{\ZJU@value@Esubmitdate}}\hfil
+    % \vfill
+    % % 最后一项 论文提交日期
+    % \hfil{\bfseries\songti\zihao{-3}\hspace{4em}\ZJU@label@Esubmitdate%
+    % \ZJUunderline[150pt]{\ZJU@value@Esubmitdate}}\hfil
   }
 }
 
@@ -543,12 +592,12 @@
   {\setlength{\baselineskip}{1.3\baselineskip}
   本人声明所呈交的学位论文是本人在导师指导下进行的研究工作及取得的研究成果。除了文中特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为获得{\bfseries\kaishu\zihao{4}\underline{~浙江大学~}}或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示谢意。
 
-  \vspace{11ex}
+  \vspace{8ex}
 
   {\songti\zihao{-4}学位论文作者签名：\hspace{8em}
   签字日期：\hspace{3em}年\hspace{2em}月\hspace{2em}日}
 
-  \vspace{12ex}
+  \vspace{8ex}
 
   \begin{center}
     {\noindent\songti\zihao{-2}学位论文版权使用授权书}
@@ -625,17 +674,17 @@
 \CTEXsetup[name={第\hspace{0.2em},\hspace{0.2em}章},beforeskip={1em plus .2em minus .2em},afterskip={1em plus .2em minus .2em}]{chapter}
 \CTEXsetup[number={\arabic{chapter}}]{chapter}
 \CTEXsetup[format={\centering}]{chapter}
-\CTEXsetup[nameformat={\bfseries\heiti\zihao{3}}]{chapter}
-\CTEXsetup[titleformat={\bfseries\heiti\zihao{3}}]{chapter}
+\CTEXsetup[nameformat={\bfseries\heiti\zihao{-2}}]{chapter}
+\CTEXsetup[titleformat={\bfseries\heiti\zihao{-2}}]{chapter}
 \CTEXsetup[format={\noindent}]{section}
-\CTEXsetup[nameformat={\bfseries\zihao{4}}]{section}
-\CTEXsetup[titleformat={\bfseries\songti\zihao{4}}]{section}
+\CTEXsetup[nameformat={\bfseries\zihao{-3}}]{section}
+\CTEXsetup[titleformat={\bfseries\heiti\zihao{-3}}]{section}
 \CTEXsetup[format={\noindent}]{subsection}
 \CTEXsetup[nameformat={\zihao{-4}}]{subsection}
-\CTEXsetup[titleformat={\bfseries\songti\zihao{-4}}]{subsection}
+\CTEXsetup[titleformat={\bfseries\heiti\zihao{-4}}]{subsection}
 \CTEXsetup[format={\noindent}]{subsubsection}
 \CTEXsetup[nameformat={\zihao{-4}}]{subsubsection}
-\CTEXsetup[titleformat={\bfseries\songti\zihao{-4}}]{subsubsection}
+\CTEXsetup[titleformat={\bfseries\heiti\zihao{-4}}]{subsubsection}
 % 此处章节标题前后空白距离采用了默认设置，如需修改请参考ctex参考文档ctex.pdf
 
 % 正文部分文字的行距设置
@@ -775,15 +824,15 @@
      \NAT@swatrue\let\NAT@ctype\z@\NAT@parfalse\let\textsuperscript\relax
      \NAT@citexnum[][]}
 
-\newcommand\ZJUthesisbib[1]{%
-  \setcitestyle{numbers, round, comma, aysep={}, yysep={,}, notesep={,}}
-  \setlength{\bibsep}{0.5ex}
-  \setlength{\bibhang}{2em}
-  \renewcommand{\bibfont}{\fangsong\zihao{5}}
+% \newcommand\ZJUthesisbib[1]{%
+%   \setcitestyle{numbers, round, comma, aysep={}, yysep={,}, notesep={,}}
+%   \setlength{\bibsep}{0.5ex}
+%   \setlength{\bibhang}{2em}
+%   \renewcommand{\bibfont}{\fangsong\zihao{5}}
 
-  \bibliographystyle{ZJUthesis}
-  \bibliography{#1}
-}
+%   \bibliographystyle{ZJUthesis}
+%   \bibliography{#1}
+% }
 
 \makeindex
 

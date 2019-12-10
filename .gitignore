@@ -16,3 +16,6 @@
 *.toc
 *.bak
 thesis.pdf
+__latexindent_temp.tex
+thesis.bcf
+thesis.run.xml

@@ -18,6 +18,102 @@
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
 \makeatother
 
+\newcommand{\epsl}{对极滑动性}
+\newcommand{\epslb}{对极可滑动}
+\newcommand{\npr}{非真实感绘制}
+\newcommand{\ppll}{逐像素链表}
+\newcommand{\stc}{立体一致的}
+
+\newcommand{\con}{显式轮廓线}
+\newcommand{\scon}{隐式轮廓线}
+\newcommand{\conp}{显式轮廓点}
+\newcommand{\sconp}{隐式轮廓点}
+
+\newcommand{\vd}{视点相关}
+\newcommand{\vid}{视点无关}
+\newcommand{\vdl}{\vd{线}}
+\newcommand{\vidl}{\vid{线}}
+
+% \usepackage{graphicx}
+% \usepackage{geometry}
+% \usepackage{tabularx}
+% \usepackage{multido}
+% \usepackage{fancyhdr}
+% \usepackage{fontspec}
+% \usepackage{titlesec}
+% \usepackage{tocloft}
+% \usepackage{multirow}
+% \usepackage{makecell}
+% \usepackage{hyperref}
+% \usepackage{ulem}
+% \usepackage{pdfpages}
+\usepackage[style=numeric,
+            sorting=none,
+            bibstyle=gb7714-2015,
+            citestyle=gb7714-2015]{biblatex}
+% \usepackage{siunitx}
+% \usepackage{caption}
+% \usepackage{color}
+% \usepackage{chngcntr}
+\usepackage{enumitem}
+% \usepackage{float}
+% \usepackage{listings}
+% \usepackage{xifthen}
+% \usepackage{amssymb}
+% \usepackage{etoolbox}
+% \usepackage{xparse}
+% \usepackage{bookmark}
+% \usepackage{calc}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{threeparttable}
+\graphicspath{{images/}}
+\bibliography{thesisbib.bib}
+
+\newcommand{\chapternonum}[1]
+{
+    \phantomsection
+    \addcontentsline{toc}{chapter}{#1}
+    \markboth{#1}{#1}
+    \begin{flushleft}
+        \bfseries \zihao{-3} #1
+    \end{flushleft}
+}
+
+\newcommand{\sectionnonum}[1]
+{
+    \phantomsection
+    \addcontentsline{toc}{section}{#1}
+    \markboth{#1}{#1}
+    \begin{flushleft}
+        \bfseries \zihao{4} #1
+    \end{flushleft}
+}
+
+\DefineBibliographyStrings{english}{%
+    andothers = {等人}
+}
+
+\defbibheading{bibliography}[\bibname]{
+    \chapternonum{#1}
+}
+
+\def\equationautorefname        {式}
+\def\figureautorefname          {图}
+\def\tableautorefname           {表}
+\def\partautorefname            {篇}
+\def\chapterautorefname         {章}
+\def\sectionautorefname         {节}
+\def\subsectionautorefname      {小节}
+\def\subsubsectionautorefname   {小小节}
+
+\captionsetup[figure]{labelsep=space}
+\counterwithin*{figure}{section}
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}}
+
+% \usepackage{tikz}
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,48 +136,48 @@
 %\SecretLevel{绝密}
 
 % 学号
-\PersonalID{11011010}
+\PersonalID{21721091}
 
-\title{基于成本的钉耙强度与应用}
+\title{立体一致的轮廓线的实时绘制}
 % 如果标题一行写不下，就写成两行，在下面的命令里写第二行，不需要两行则注释掉
-\titletl{——东方视角分析}
+% \titletl{——东方视角分析}
 
 %英文题目
-\Etitle{Cost Based Rake Strength}
+\Etitle{Real-Time Rendering of Stereo-Consistent}
 % 如果一行写不下，同中文题目设定，一行写不下则写两行，不需要就注释掉
-\Etitletl{and Application:}
-\Etitletll{An Oriental View}
+\Etitletl{Contours and Suggestive Contours}
+% \Etitletll{An Oriental View}
 
 % 作者
-\author{猪八戒}
-\Eauthor{Bajie Zhu}
+\author{何淂劲}
+\Eauthor{Dejing He}
 
 \degree{硕士}
 \Edegree{Master of Engineering}
 
 % 导师
-\supervisor{唐三藏法师}
-\Esupervisor{Master Sanzang Tang}
+\supervisor{王锐}
+\Esupervisor{Rui Wang}
 
 % 合作导师，如果有的话，去掉注释，
 % \cpsupervisor{张三丰真人}
 % \Ecpsupervisor{Truman Sanfeng Zhang}
 
 % 专业名称
-\major{祭坛管理}
-\Emajor{Altar Management}
+\major{计算机科学与技术}
+\Emajor{Computer Science and Technology}
 
 % 研究方向
-\researchdm{法器工程}
-\Eresearchdm{Ritual Instrument Engineering}
+\researchdm{计算机图形学}
+\Eresearchdm{Computer Graphics}
 
 % 所属学院
-\institute{大雷音寺管理研究院}
-\Einstitute{Management Institute of Great Thunder Monastery}
+\institute{计算机科学与技术学院}
+\Einstitute{College of Computer Science and Technology}
 
 %论文提交日期
-\submitdate{二〇一三年一月十日}
-\Esubmitdate{2013-1-10}
+\submitdate{}
+\Esubmitdate{}
 
 % 答辨日期
 %\defenddate{2011年11月1日}
@@ -136,16 +232,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ZJUmainmatter
 
-\input{./chapters/chap1}
-
-\input{./chapters/chap2}
+\input{./chapters/introduction}
+\input{./chapters/related_work}
+\input{./chapters/contours}
+\input{./chapters/math}
+\input{./chapters/algorithm}
+\input{./chapters/result}
+\input{./chapters/conclusion}
 
 
 \ZJUbackmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 参考文献
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ZJUthesisbib{thesisbib}
+% \ZJUthesisbib{thesisbib}
+\printbibliography[title={参考文献}]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 发表论文目录
