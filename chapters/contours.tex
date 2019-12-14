@@ -1,6 +1,6 @@
 \chapter{\con{}和\scon{}绘制算法}
 
-在讨论如何实现\stc{}\con{}和\scon{}绘制之前，本文将先对不考虑立体一致性的\con{}和\scon{}绘制进行说明。本文所实现的\con{}和\scon{}绘制算法参考自\citeauthor{northrup2000artistic}和\citeauthor{isenberg2002stylizing}的工作\cite{northrup2000artistic,isenberg2002stylizing}，但在具体实现上最大化利用了现代绘制流水线提供的一些机制。考虑到后续还需要执行\stc{}相关处理，高效地实现作为基础的\con{}和\scon{}的绘制是十分有必要的。
+在讨论如何实现\stc{}\con{}和\scon{}绘制之前，本文将先对不考虑\stcy{}的\con{}和\scon{}绘制进行说明。本文所实现的\con{}和\scon{}绘制算法参考自\citeauthor{northrup2000artistic}和\citeauthor{isenberg2002stylizing}的工作\cite{northrup2000artistic,isenberg2002stylizing}，但在具体实现上最大化利用了现代绘制流水线提供的一些机制。考虑到后续还需要执行\stc{}相关处理，高效地实现作为基础的\con{}和\scon{}的绘制是十分有必要的。
 
 \section{\con{}和\scon{}的直接绘制}
 \label{sec:basic}

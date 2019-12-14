@@ -87,12 +87,12 @@
 
 \begin{figure}[tbp]
     \centering
-    \includegraphics[width=0.8\linewidth]{suggestive_contour_definition}
+    \includegraphics[width=0.9\linewidth]{suggestive_contour_definition}
     \caption{\label{fig:suggestive_contour_definition}
     \scon{}的定义。其中$N$表示表面法线，$V$表示视线方向，$W$表示$V$在切平面上的投影。}
 \end{figure}
 
-其中$\phi$表示绕主方向$d_1$转过的角度。该公式也被称为法线曲率的欧拉公式，它表示了任意方向上的曲率是关于两个主曲率的一个函数。\scon{}的定义和法向曲率直接相关。从比较直观的角度来看，\scon{}表示三维模型表面上$N\cdot{V}$在$W$方向上的局部最小值，其中$W$表示$V$在切平面的投影，\autoref{fig:suggestive_contour_definition}展示了表面上某点属于\scon{}的一个例子。换言之，要找到\scon{}，其实就是要找到$N\cdot{V}$的导数的零点，并且保证此处的二阶导数的值为正。而$N\cdot{V}$在$W$方向上的导数等于$W$方向上的法向曲率$\kappa_r$乘以一个常数，推导如下：
+其中$\phi$表示绕主方向$D_1$转过的角度。该公式也被称为法线曲率的欧拉公式，它表示了任意方向上的曲率是关于两个主曲率的一个函数。\scon{}的定义和法向曲率直接相关。从比较直观的角度来看，\scon{}表示三维模型表面上$N\cdot{V}$在$W$方向上的局部最小值，其中$W$表示$V$在切平面的投影，\autoref{fig:suggestive_contour_definition}展示了表面上某点属于\scon{}的一个例子。换言之，要找到\scon{}，其实就是要找到$N\cdot{V}$的导数的零点，并且保证此处的二阶导数的值为正。而$N\cdot{V}$在$W$方向上的导数等于$W$方向上的法向曲率$\kappa_r$乘以一个常数，推导如下：
 
 \begin{align}
     D_w(N\cdot(V)) &= D_w{N}\cdot{V} + N\cdot{D_w{V}} \\
@@ -152,12 +152,12 @@
     \centering
     \includegraphics[width=\linewidth]{disparity}
     \caption{\label{fig:disparity}
-    立体一致的基于笔画的图像风格化}
+    \stc{}基于笔画的图像风格化}
 \end{figure}
 
-除了基于图像的风格化算法，基于三维模型的线绘制在双目绘制下的问题也有一定的研究。\citeauthor{kim2013stereoscopic}在他们的工作中具体定义了关于轮廓线的\stc{}概念，并提出了在多个视点上检查对极曲线上的对应轮廓点的的方法来保证轮廓线的立体一致性，该方法对于\scon{}也同样适用。此外，\citeauthor{bukenberger2018stereo}在近年提出了一个新的方法\cite{bukenberger2018stereo}来解决\stc{}\vdl{}绘制这个问题。与前者在图像空间中处理的方法相比，他们的方法着力于利用物体空间的信息来解决这个问题。他们的方法首先绘制出不同给定视点下的\vdl{}的结果并以物体空间的形式存储下来，接着利用这些信息通过插值得出新视点下立体一致的\vdl{}的图像。
+除了基于图像的风格化算法，基于三维模型的线绘制在双目绘制下的问题也有一定的研究。\citeauthor{kim2013stereoscopic}在他们的工作中具体定义了关于轮廓线的\stc{}概念，并提出了在多个视点上检查\ec{}上的对应轮廓点的的方法来保证轮廓线的\stcy{}，该方法对于\scon{}也同样适用。此外，\citeauthor{bukenberger2018stereo}在近年提出了一个新的方法\cite{bukenberger2018stereo}来解决\stc{}\con{}绘制这个问题。与前者在图像空间中处理的方法相比，他们的方法着力于利用物体空间的信息来解决这个问题。他们的方法首先绘制出不同给定视点下的\con{}的结果并以物体空间的形式存储下来，接着利用这些信息通过插值得出新视点下\stc{}\con{}的图像。
 
-在\stc{}\vdl{}绘制的基础上，如何做进一步的风格化的问题也得到了关注\cite{northrup2000artistic,kalnins2003coherent} 。\citeauthor{kim2013stereoscopic}和\citeauthor{bukenberger2018stereo}都在他们各自的工作中提出了对\stc{}的\vdl{}进行风格化的方法。在获得不同视点下轮廓点的对应关系的基础上，\citeauthor{kim2013stereoscopic}在不同视点之间传递风格化参数的方法，从而保证进一步的风格化处理依然保持最后结果是\stc{}。在\citeauthor{bukenberger2018stereo}的工作中，进一步的风格化参数由物体的三维表面的一些特征决定，以此来保证结果的时序一致性（temporal coherency）。同样，本文将先就如何实现\stc{}\con{}和\scon{}来进行阐述，然后再描述进一步风格化的解决方法。
+在\stc{}\con{}绘制的基础上，如何做进一步的风格化的问题也得到了关注\cite{northrup2000artistic,kalnins2003coherent} 。\citeauthor{kim2013stereoscopic}和\citeauthor{bukenberger2018stereo}都在他们各自的工作中提出了对\stc{}的\con{}进行风格化的方法。在获得不同视点下轮廓点的对应关系的基础上，\citeauthor{kim2013stereoscopic}在不同视点之间传递风格化参数的方法，从而保证进一步的风格化处理依然保持最后结果是\stc{}。在\citeauthor{bukenberger2018stereo}的工作中，进一步的风格化参数由物体的三维表面的一些特征决定，以此来保证结果的时序一致性（temporal coherency）。同样，本文将先就如何实现\stc{}\con{}和\scon{}来进行阐述，然后再描述进一步风格化的解决方法。
 
 \subsection{\ppll{}}
 

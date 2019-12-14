@@ -18,16 +18,20 @@
 \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
 \makeatother
 
-\newcommand{\epsl}{对极滑动性}
-\newcommand{\epslb}{对极可滑动}
+\newcommand{\el}{极线}
+\newcommand{\ec}{极曲线}
+
+\newcommand{\epsl}{极线滑动性}
+\newcommand{\epslb}{极线可滑动}
 \newcommand{\npr}{非真实感绘制}
 \newcommand{\ppll}{逐像素链表}
-\newcommand{\stc}{立体一致的}
+\newcommand{\stc}{双目一致的}
+\newcommand{\stcy}{双目一致性}
 
 \newcommand{\con}{轮廓线}
-\newcommand{\scon}{暗示性轮廓线}
+\newcommand{\scon}{暗示轮廓线}
 \newcommand{\conp}{轮廓点}
-\newcommand{\sconp}{暗示性轮廓点}
+\newcommand{\sconp}{暗示轮廓点}
 
 \newcommand{\vd}{视点相关}
 \newcommand{\vid}{视点无关}
@@ -139,16 +143,14 @@
 % 学号
 \PersonalID{21721091}
 
-\title{立体一致的视点相关线的实时绘制}
+\title{双目一致的轮廓线实时绘制算法研究}
 % 如果标题一行写不下，就写成两行，在下面的命令里写第二行，不需要两行则注释掉
 % \titletl{\scon{}的实时绘制}
 
 %英文题目
-\Etitle{Real-Time Rendering of Stereo-}
+\Etitle{Real-Time Rendering of}
 % 如果一行写不下，同中文题目设定，一行写不下则写两行，不需要就注释掉
-\Etitletl{Consistent View-Dependent Lines}
-% \Etitletl{Contours and Suggestive Contours}
-% \Etitletll{An Oriental View}
+\Etitletl{Stereo-Consistent Contours}
 
 % 作者
 \author{何淂劲}
@@ -185,10 +187,10 @@
 %\defenddate{2011年11月1日}
 
 % 生成封面
-% \makeCoverPage
+\makeCoverPage
 
 % 生成英文封面
-% \makeECoverPage
+\makeECoverPage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 原创声明与版权协议页
