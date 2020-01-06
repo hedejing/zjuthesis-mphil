@@ -4,8 +4,8 @@
 
 \begin{figure}[tbh]
     \centering
-    \makebox[\textwidth][c]{\includegraphics[width=1.2\linewidth]{overview2}}
-    \caption{\label{fig:overview2}
+    \makebox[\textwidth][c]{\includegraphics[width=\linewidth]{overview2}}
+    \caption[算法流程说明]{\label{fig:overview2}
     算法流程说明。为了描述上的简洁，该说明只展示了从$L$到$R$计算\stc{}\con{}的过程。首先，计算出\conp{}$a$、$b$、$c$和极值点$d$。然后，本文设计的算法在图像空间中对$a$和$b$的\epsl{}进行判定，其中$a$由于遇到了$d$所以判定为不是\stc{}，而$b$由于找到了对应的来自右眼的\conp{}$c$所以判定为\stc{}。最后，将\stc{}的\conp{}$b$和$c$绘制到最终展示的两眼对应图像中。
     }
 \end{figure}
@@ -20,7 +20,7 @@
 \begin{figure}[tbh]
     \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.2\linewidth]{overview}}
-    \caption{\label{fig:overview}
+    \caption[系统总览]{\label{fig:overview}
     系统总览。蓝色/红色的正方形表示左眼/右眼的某种实例。在初始化阶段，首先载入三维模型并对对应于两眼的摄像机进行设置。在后续的每一帧中，轮廓点和极值点先是被绘制并存储到\ppll{}上，然后以这些\ppll{}作为输入进行\epsl{}的判定，最后，基于上一步得到的\epsl{}绘制出\stc{}轮廓线。}
 \end{figure}
 
@@ -49,7 +49,7 @@
     \subfloat[左眼]{\includegraphics[width=.5\linewidth]{inflection_line_left}}
     \hfil
     \subfloat[右眼]{\includegraphics[width=.5\linewidth]{inflection_line_right}}
-    \caption{极值点的计算。$\triangle ABC$和$\triangle ACD$是两个相邻的三角形。本文设计的方法对位于边$AC$上的每个片段进行极值点的判定。(a) 在左眼的图像空间计算极值点。 (b) 在右眼的图像空间计算极值点。} \label{fig:extreme points}
+    \caption[轨迹函数的极值点的计算]{极值点的计算。$\triangle ABC$和$\triangle ACD$是两个相邻的三角形。本文设计的方法对位于边$AC$上的每个片段进行极值点的判定。(a) 在左眼的图像空间计算极值点。 (b) 在右眼的图像空间计算极值点。} \label{fig:extreme points}
 \end{figure}
 
 \subsection{\scon{}}
@@ -57,14 +57,14 @@
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\linewidth]{ts_example.eps}
-    \caption{\label{fig:continuity_example}
+    \caption[$t_s(x)$的一个例子]{\label{fig:continuity_example}
     $t_s(x)$的一个例子。该图表示沿着图像中某一行的$t_s(x)$的值的分布。蓝色/红色的点分别表示$t_s^{max}(x)$/$t_s^{min}(x)$的值。}
 \end{figure}
 
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=.95\linewidth]{continuity}
-    \caption{在虚线所指位置上，$t_s(x)$的连续性的三种不同情况。}
+    \caption[$t_s(x)$的连续性的三种不同情况]{在虚线所指位置上，$t_s(x)$的连续性的三种不同情况。}
     \label{fig:ts_continuity}
 \end{figure}
 
@@ -84,7 +84,7 @@
     \subfloat[不需要重投影的搜索]{\includegraphics[width=.5\linewidth]{search_leftside_2}}
     \hfil
     \subfloat[需要重投影的搜索]{\includegraphics[width=.5\linewidth]{search_rightside}}
-    \caption{遇到对应轮廓点的搜索过程。$p_L$和$p_R$分别表示$P_L$和$P_R$的投影。}\label{fig:succeed in image space search}
+    \caption[遇到对应轮廓点的搜索过程]{遇到对应轮廓点的搜索过程。$p_L$和$p_R$分别表示$P_L$和$P_R$的投影。}\label{fig:succeed in image space search}
 \end{figure}
 
 \begin{figure}[tbh]
@@ -92,13 +92,13 @@
     \subfloat[需要重投影的搜索]{\includegraphics[width=.5\linewidth]{search_leftside_fail_2}}
     \hfil
     \subfloat[需要重投影的搜索]{\includegraphics[width=.5\linewidth]{search_rightside_fail}}
-    \caption{在极值点处停止的搜索过程。$P_F$是一个极值点。$p_L$和$p_F$分别表示$P_L$和$P_F$的投影。} \label{fig:fail in image space search}
+    \caption[在极值点处停止的搜索过程]{在极值点处停止的搜索过程。$P_F$是一个极值点。$p_L$和$p_F$分别表示$P_L$和$P_F$的投影。} \label{fig:fail in image space search}
 \end{figure}
 
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.6\linewidth]{search_occlude}
-    \caption{\label{fig:occlude}
+    \caption[错误匹配的排除]{\label{fig:occlude}
     由于遮挡导致的错误匹配。本文设计的方法通过物体的索引来排除这种情况。}
 \end{figure}
 
@@ -126,4 +126,4 @@
 
 \section{线条的风格化绘制}
 
-\citeauthor{kim2013stereoscopic}在他们的工作\cite{kim2013stereoscopic}中通过将风格化参数从一个视点的图像空间传递到另一个视点的图像空间的方法来实现风格化的轮廓线。\citeauthor{bukenberger2018stereo}则在他们的物体空间的方法\cite{bukenberger2018stereo}中采取了根据物体空间属性来确定风格化参数的方法。本文提出的方法也同样支持\con{}和\scon{}的风格化绘制。本文采用了一种启发式的组合方法来解决这个问题，即在图像空间中传递纹理坐标，并在物体空间中确定除纹理坐标以外的其他风格化参数。具体而言，纹理坐标的传递通过上述第二阶段的轮廓点匹配来完成，而其他的风格化参数则在第三个阶段中基于物体空间的几何特征来确定。对于\scon{}而言，以上表述也同样成立。
+Kim等人在他们的工作\cite{kim2013stereoscopic}中通过将风格化参数从一个视点的图像空间传递到另一个视点的图像空间的方法来实现风格化的轮廓线。Bukenberger等人则在他们的物体空间的方法\cite{bukenberger2018stereo}中采取了根据物体空间属性来确定风格化参数的方法。本文提出的方法也同样支持\con{}和\scon{}的风格化绘制。本文采用了一种启发式的组合方法来解决这个问题，即在图像空间中传递纹理坐标，并在物体空间中确定除纹理坐标以外的其他风格化参数。具体而言，纹理坐标的传递通过上述第二阶段的轮廓点匹配来完成，而其他的风格化参数则在第三个阶段中基于物体空间的几何特征来确定。对于\scon{}而言，以上表述也同样成立。

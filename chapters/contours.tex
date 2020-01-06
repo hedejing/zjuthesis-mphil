@@ -1,6 +1,6 @@
 \chapter{\con{}和\scon{}绘制算法}
 
-在讨论如何实现\stc{}\con{}和\scon{}绘制之前，本文将先对不考虑\stcy{}的\con{}和\scon{}绘制进行说明。本文所实现的\con{}和\scon{}绘制算法参考自\citeauthor{northrup2000artistic}和\citeauthor{isenberg2002stylizing}的工作\cite{northrup2000artistic,isenberg2002stylizing}，但在具体实现上最大化利用了现代绘制流水线提供的一些机制。考虑到后续还需要执行\stc{}相关处理，高效地实现作为基础的\con{}和\scon{}的绘制是十分有必要的。
+在讨论如何实现\stc{}\con{}和\scon{}绘制之前，本文将先对不考虑\stcy{}的\con{}和\scon{}绘制进行说明。本文所实现的\con{}和\scon{}绘制算法参考自Northrup等人和Isenberg等人的工作\cite{northrup2000artistic,isenberg2002stylizing}，但在具体实现上最大化利用了现代绘制流水线提供的一些机制。考虑到后续还需要执行\stc{}相关处理，高效地实现作为基础的\con{}和\scon{}的绘制是十分有必要的。
 
 \section{\con{}和\scon{}的直接绘制}
 \label{sec:basic}
@@ -27,7 +27,7 @@
 \begin{figure}[!t]
     \centering
     \includegraphics[width=0.8\linewidth]{detect_contours}
-    \caption{\label{fig:detect_contours}
+    \caption[轮廓线的检测]{\label{fig:detect_contours}
     上：检测三角形中的\con{}的线段，下：形成连续的长线}
 \end{figure}
 
@@ -50,7 +50,7 @@
   D_w\kappa_r &> 0 \label{eq:DwKr0} 
 \end{align}
 
-其中$\kappa_r$表示表面上一点的径向曲率，$D_w\kappa_r$表示$\kappa_r$的方向导数。更确切地说，$\kappa_r$是视线方向$V$在切平面上的投影$W$的方向上的法向曲率。法向曲率的概念已经在\autoref{sec:diff_geo}中进行说明，在此不再赘述。由于\scon{}的检测需要三维模型的曲率信息，而三维模型本身只记录了各个顶点的位置和法线，因此相比于\con{}的检测，\scon{}的检测需要对三维模型进行预处理来获取额外的信息。本文在实现中使用了trimesh\cite{trimesh}来对三维模型进行预处理得到各个顶点的主方向、主曲率以及表示曲率方向导数的张量，并将这些信息作为顶点属性传入顶点着色器阶段。
+其中$\kappa_r$表示表面上一点的径向曲率，$D_w\kappa_r$表示$\kappa_r$的方向导数。更确切地说，$\kappa_r$是视线方向$V$在切平面上的投影$W$的方向上的法向曲率。法向曲率的概念已经在\autoref{sec:diff_geo}中进行说明，在此不再赘述。由于\scon{}的检测需要三维模型的曲率信息，而三维模型本身只记录了各个顶点的位置和法线，因此相比于\con{}的检测，\scon{}的检测需要对三维模型进行预处理来获取额外的信息。本文在实现中使用了trimesh\footnote{\url{https://gfx.cs.princeton.edu/proj/trimesh2/}}来对三维模型进行预处理得到各个顶点的主方向、主曲率以及表示曲率方向导数的张量，并将这些信息作为顶点属性传入顶点着色器阶段。
 
 在顶点着色器阶段，首先计算出视线方向$V$在当前顶点的切平面上的投影$W$，然后计算出$W$与主方向的夹角并进一步得到当前顶点的径向曲率$\kappa_r$以及$D_w\kappa_r$。接着，在几何着色器阶段，根据三角形的三个顶点的$\kappa_r$的值通过插值找出三角形的边上存在的$\kappa_r = 0$的点。这个过程和\autoref{fig:detect_contours}所展示的过程一样，只是将$N\cdot{V}$修改为$\kappa_r$。但和\con{}的检测不同的是，为了满足\autoref{eq:DwKr0}的条件，还需要插值出$\kappa_r = 0$的点上的$D_w\kappa_r$的值，并依据$D_w\kappa_r$的值截取出$\kappa_r = 0$的两点形成的线段中$D_w\kappa_r > 0$的部分。具体地，如果两个点上的$D_w\kappa_r$的值都大于0，则保留整个线段作为输出图元；如果如果两个点上的$D_w\kappa_r$的值都小于0，则去掉整个线段，不输出图元；如果两个点上的$D_w\kappa_r$的值异号，则在这两点之间插值出$D_w\kappa_r = 0$的点，并取这个点与$D_w\kappa_r > 0$的端点组成新的线段作为输出图元。
 
@@ -70,13 +70,13 @@
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\linewidth]{link_quad}
-    \caption{\label{fig:link_quad}
+    \caption[线条的风格化绘制]{\label{fig:link_quad}
     1：连接邻接的线段，2：将线段拓展为四边形}
 \end{figure}
 
 接下来下文对\con{}和\scon{}的风格化绘制的步骤进行具体的说明。其中第一步与\con{}和\scon{}的直接绘制相同，在此处不再赘述。
 
-在第二步中，本文使用了完全相同的几何着色器来完成\con{}和\scon{}的检测，但是绘制流水线就在几何着色器阶段结束，并使用变换反馈（transform feedback）\cite{transformfeedback}的机制将几何着色器创建的线图元传递到CPU端，且每个线段附带有所在三角形的索引。
+在第二步中，本文使用了完全相同的几何着色器来完成\con{}和\scon{}的检测，但是绘制流水线就在几何着色器阶段结束，并使用变换反馈（transform feedback）\footnote{\url{https://www.khronos.org/opengl/wiki/Transform_Feedback}}的机制将几何着色器创建的线图元传递到CPU端，且每个线段附带有所在三角形的索引。
 
 在第三步中，根据GPU端传回的线段与三角形的对应关系，以及三维模型本身带有的三角形与三角形之间的邻接关系，连接线段并构建长线。接着，遍历所有得到的长线进行过滤，如果不满足预先设定的一些条件，例如其中某条线段的长度过小、两条线段之间的夹角过大，则将长线断开。此处的过滤是为了减少长线在局部上的跳变，使得最终呈现出来的线条更加均匀连续。最后再遍历过滤后得到的每条长线，将其构建为GPU绘制所需要的数据结构，并给长线上的每个顶点附加上后续绘制需要的信息，例如随着每段线段的长度占总长度增加的纹理坐标。
 

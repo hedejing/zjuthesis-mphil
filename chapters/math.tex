@@ -1,34 +1,15 @@
-% \cite{kim2013stereoscopic}
-% \cite{bukenberger2018stereo}
-% \cite{wysiwyg2002drawing}
-% \cite{geiger1995occlusions}
-% \cite{cole2008people}
-% \cite{rusinkiewicz2008line}
-% \cite{hertzmann2000illustrating}
-% \cite{raskar1999image}
-% \cite{decarlo2003suggestive}
-% \cite{raskar2001hardware}
-% \cite{yang2010real}
-% \cite{decarlo2002stylization}
-% \cite{stavrakis2005image}
-% \cite{hertzmann1998painterly}
-% \cite{northam2012consistent}
-% \cite{northam2013stereoscopic}
-% \cite{northrup2000artistic}
-% \cite{kalnins2003coherent}
-% \cite{everitt2001interactive}
-% \cite{cole2010two}
-% \cite{appel1967notion}
-% \cite{DFRS03}
-% \cite{INR04}
-\chapter{\epsl{}的概念与推导}
+\chapter{基于轨迹单调性的\epsl{}判定}
+
+在这一章节中，本文将先对Kim等人提出的\epsl{}\cite{kim2013stereoscopic}进行介绍，然后进一步阐述本文在此基础上进行的推导。
+
+\section{\epsl{}}
 
 \begin{figure}[tbh]
     \centering
     \subfloat[\epslb{}]{\includegraphics[width=.5\linewidth]{slidable}}
     \hfil
     \subfloat[不是\epslb{}]{\includegraphics[width=.5\linewidth]{unslidable}}
-    \caption{\epsl{}。(a)表示$P_L$是\epslb{}，(b)表示$P_L$不是\epslb{}。} \label{fig_sim2}
+    \caption[\epsl{}的定义]{\epsl{}的定义。(a)表示$P_L$是\epslb{}，(b)表示$P_L$不是\epslb{}。} \label{fig_sim2}
     \label{fig:slidability}
 \end{figure}
 
@@ -37,16 +18,12 @@
     \subfloat[\epslb{}]{\includegraphics[width=.5\linewidth]{inverse_slidable}\label{fig:inverse_slidable}}
     \hfil
     \subfloat[不是\epslb{}]{\includegraphics[width=.5\linewidth]{inverse_unslidable}\label{fig:inverse_not_slidable}}
-    \caption{\epsl{}的推论。(a)表示$P_L$是\epslb{}，(b)表示$P_L$不是\epslb{}} \label{fig:inverse_slidability}
+    \caption[\epsl{}的推论]{\epsl{}的推论。(a)表示$P_L$是\epslb{}，(b)表示$P_L$不是\epslb{}} \label{fig:inverse_slidability}
 \end{figure}
-
-在这一章节中，本文将先对\citeauthor{kim2013stereoscopic}提出的\epsl{}\cite{kim2013stereoscopic}进行介绍，然后进一步阐述本文在此基础上进行的推导。
-
-\section{\epsl{}}
 
 以\con{}为例，如俯视图\autoref{fig:slidability}所示，\epsl{}的定义如下：假设$L$和$R$分别表示左眼和右眼对应的视点，$P_L$和$P_R$分别表示以$L$和$R$作为视点观察到的\con{}上的一个\conp{}。假设以$L$和$R$连线上的一个点$E$作为视点，当$E$从$L$向$R$移动，对应的轮廓点也应该从$P_L$向$P_R$移动，它在物体表面上移动的轨迹曲线${P_L}{P_R}$称为\ec{}\cite{geiger1995occlusions}。如果\ec{}上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$就是\epslb{}的（\autoref{fig:slidability}(a)）。否则，如果\ec{}上的轮廓点能够从$P_L$连续变化到$P_R$，那么$P_L$不是\epslb{}的，不能和对应的轮廓点形成正确的立体视觉（\autoref{fig:slidability}(b)），因此该轮廓点应该在双目绘制的最终结果中被消去。
  
-\citeauthor{kim2013stereoscopic}在他们的工作上提出了一种对$P_L$的\epsl{}进行检验的方法。具体来说，他们的方法首先在两眼对应的视点$L$和$R$之间枚举多个视点$E_0$、$E_1$……$E_n$，并按照顺序在这些视点上基于三维模型的几何绘制出轮廓线。当所有相邻视点得到的轮廓点，例如\autoref{fig:slidability}(a)中的$E_i$、$E_{i+1}$分别得到的$x_i$和$x_{i+1}$，都满足$x_{i+1}$在$x_i$的\ec{}方向上的一定区间范围内，那么就$P_L$就是\epslb{}的轮廓点。简而言之，就是为了确定当$E$从$L$向$R$移动时对应的轮廓点也相应地从$P_L$向$P_R$移动，所以通过从$L$向$R$按顺序采样多个视点并绘制出轮廓线的图像来进行验证。
+Kim等人在他们的工作上提出了一种对$P_L$的\epsl{}进行检验的方法。具体来说，他们的方法首先在两眼对应的视点$L$和$R$之间枚举多个视点$E_0$、$E_1$……$E_n$，并按照顺序在这些视点上基于三维模型的几何绘制出轮廓线。当所有相邻视点得到的轮廓点，例如\autoref{fig:slidability}(a)中的$E_i$、$E_{i+1}$分别得到的$x_i$和$x_{i+1}$，都满足$x_{i+1}$在$x_i$的\ec{}方向上的一定区间范围内，那么就$P_L$就是\epslb{}的轮廓点。简而言之，就是为了确定当$E$从$L$向$R$移动时对应的轮廓点也相应地从$P_L$向$P_R$移动，所以通过从$L$向$R$按顺序采样多个视点并绘制出轮廓线的图像来进行验证。
 
 需要特别指出的是，虽然以上定义和方法使用\con{}为例进行表述，但是以上定义和方法对于\scon{}也同样成立，例如$P_L$和$P_R$也可以分别表示以$L$和$R$作为视点观察到的\scon{}上的一个\sconp{}。在下文的讨论中，本文也会先以\con{}为例进行表述，在有需要特别说明的情况下，再对\scon{}的情况进行特别说明。
 
@@ -54,7 +31,7 @@
 
 前人提出的\epsl{}的概念已在上一小节进行了细致的说明，它对于\conp{}和\sconp{}在双目绘制的情况下是否应该被消去给出了明确的数学判定条件，具有重要的指导意义。本文提出的方法则拓展了\epsl{}的概念并提出了一个推论：要判定\epsl{}，可以通过检查$P_L$到$P_R$的轮廓点的对应视点的轨迹来完成，从而避免在$L$和$R$之间采样多个视点所需要的繁重的计算，使得设计更加高效的\stc{}的\con{}和\scon{}绘制算法成为可能。
 
-本文提出的方法的出发点如\autoref{fig:inverse_slidability}所示。假设一个\conp{}$x$沿着$P_L$到$P_R$的\ec{}移动，如果$P_L$是\epslb{}的，那么$x$对应的视点$E$会单调地从$L$移动到$R$（\autoref{fig:inverse_slidability}(a)）。如果$P_L$不是\epslb{}的，那么对应的视点$E$不会在到达$R$之前保持一直朝着$R$移动（\autoref{fig:inverse_slidability}(b)）。简单来说，本文上述的判定过程在本质上和\citeauthor{kim2013stereoscopic}描述的\epsl{}的判定过程是一致是，只是本文是从\conp{}反推出视点的变化规律，并通过这个视点的变化规律来进行\epsl{}的判定，而不是像前人一样直接通过\conp{}的变化来进行\epsl{}的判定。
+本文提出的方法的出发点如\autoref{fig:inverse_slidability}所示。假设一个\conp{}$x$沿着$P_L$到$P_R$的\ec{}移动，如果$P_L$是\epslb{}的，那么$x$对应的视点$E$会单调地从$L$移动到$R$（\autoref{fig:inverse_slidability}(a)）。如果$P_L$不是\epslb{}的，那么对应的视点$E$不会在到达$R$之前保持一直朝着$R$移动（\autoref{fig:inverse_slidability}(b)）。简单来说，本文上述的判定过程在本质上和Kim等人描述的\epsl{}的判定过程是一致是，只是本文是从\conp{}反推出视点的变化规律，并通过这个视点的变化规律来进行\epsl{}的判定，而不是像前人一样直接通过\conp{}的变化来进行\epsl{}的判定。
 
 不难发现，以上提出的推论虽然以\con{}为例进行表述，但是对于\scon{}也完全适用。但是由于\con{}和\scon{}的数学定义不同，所以下面开始分别对\con{}和\scon{}用明确的数学语言给出有关\epsl{}的推论。
 
@@ -95,7 +72,7 @@ t = \frac{(P-L)\cdot{N}}{(R-L)\cdot{N}}
 \begin{figure}[bth]
     \centering
     \includegraphics[width=0.6\linewidth]{deduction_t}
-    \caption{\label{fig:deduction_t}
+    \caption[轨迹函数的推导]{\label{fig:deduction_t}
     $t$的导数的推导}
 \end{figure}  
 
@@ -108,7 +85,7 @@ t = \frac{(P-L)\cdot{N}}{(R-L)\cdot{N}}
 \begin{figure}[bth]
     \centering
     \includegraphics[width=0.6\linewidth]{deduction_n}
-    \caption{\label{fig:deduction_n}
+    \caption[曲线的法线导数的推导]{\label{fig:deduction_n}
     曲线的法线导数的推导}
 \end{figure}
 
@@ -191,7 +168,7 @@ t_c' & = \frac{C|P-L||N|\sin\alpha|R-L||N|\cos\beta-C|R-L||N|\sin\beta|P-L||N|\c
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=0.9\linewidth]{suggestive_contour_definition}
-    \caption{\label{fig:suggestive_contour_definition2}
+    \caption[\scon{}的定义]{\label{fig:suggestive_contour_definition2}
     \scon{}的定义。其中$N$表示表面法线，$V$表示视线方向，$W$表示$V$在切平面上的投影。}
 \end{figure}
 

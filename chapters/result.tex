@@ -7,15 +7,15 @@
 \begin{figure}[tbh]
     \centering
     \makebox[\textwidth][c]{\includegraphics[width=1.2\linewidth]{basic}}
-    \caption{\label{fig:basic}
-    用直接方法生成的双目图像和用本文提出的方法生成的双目图像的对比。从上到下分别是分别对左右两眼进行绘制、\stc{}的结果以及\stc{}结果上进行进一步风格化的结果。使用的三维模型来自DeCarlo等人的工作\cite{DFRS03}。
+    \caption[与直接方法的双目图像的对比]{\label{fig:basic}
+    用直接方法生成的双目图像和用本文提出的方法生成的双目图像的对比。从左到右分别是分别对左右两眼进行绘制、使用本文的方法得到的\stc{}的结果以及\stc{}结果上进行进一步风格化的结果。使用的三维模型来自DeCarlo等人的工作\cite{DFRS03}。
     }
 \end{figure}
   
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\linewidth]{more}
-    \caption{\label{fig:more}
+    \caption[更多与直接方法的双目图像的对比]{\label{fig:more}
     更多用直接方法生成的双目图像和用本文提出的方法生成的双目图像的对比。
     }
 \end{figure}
@@ -25,7 +25,7 @@
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=0.8\linewidth]{comparison}
-    \caption{\label{fig:comparison}
+    \caption[与前人工作的双目图像的对比]{\label{fig:comparison}
     前人工作\cite{kim2013stereoscopic,bukenberger2018stereo}所展示的结果和本文方法所生成的结果的对比。由于无法获取前人工作所展示结果使用的一些绘制参数，所以本文方法生成的结果是通过手动调节参数来尽量使得艺术效果上尽量一致。但是由于使用的模型或者\con{}和\scon{}绘制算法实现上的差异，部分细节仍会有所出入。天马的图像是根据深度对笔画宽度进行风格化的结果。使用的模型来自IMATI和CNR的AIM@SHAPE-VISIONAIR Shape Repository\cite{INR04}。}
 \end{figure}  
 
@@ -34,7 +34,7 @@
 \begin{figure}[tbh]
     \centering
     \includegraphics[width=\linewidth]{hidden}
-    \caption{\label{fig:hidden}
+    \caption[遮挡情况下的匹配]{\label{fig:hidden}
     在线条被遮挡的情况下的匹配。使用了方框和箭头来指出被遮挡的线条。右边展示了来自于另一工作\cite{bukenberger2018stereo}的相似结果作为对比。}
 \end{figure}
 
@@ -48,7 +48,7 @@
     \renewcommand{\arraystretch}{1.3}
     \centering
   \begin{threeparttable}
-    \caption{示例场景的效率数据$^1$}
+    \caption[示例场景的效率数据]{示例场景的效率数据$^1$}
     \label{tab:performance}
     %\scriptsize
     % \small
@@ -73,4 +73,4 @@
 
 本文使用PC平台上的OpenGL 4.6实现所展示的\stc{}\vdl{}绘制系统，所使用的CPU为Intel Xeon E3，GPU为NVIDIA GeForce RTX 2080 Ti。绘制图像的分辨率为1024$\times$768。
 
-\autoref{tab:performance}展示了绘制\autoref{fig:basic}和\autoref{fig:comparison}所示结果的效率。需要指出的是，这些时间数据是在没有启用线条风格化的情况下记录的。在对比之下可以看出，\citeauthor{kim2013stereoscopic}实现的系统\cite{kim2013stereoscopic}在使用GPU并且顶点数量达到30,000的情况下效率是每秒3帧。\citeauthor{bukenberger2018stereo}在他们的工作中实现了一个更高效的系统\cite{bukenberger2018stereo}，在使用CPU并且面片数达到20,000的情况下能够达到每秒24帧的效率，但是在他们的工作中没有提及使用GPU的情况。然而，这样的效率是他们在没有正确考虑视点相关的遮挡的情况下得到的。在他们的方法中，即使对于像犹他茶壶（Utah Teapot）这样只有2464面片的小模型，完整考虑视点相关遮挡所需要的视图算法也需要消耗0.25秒，而对于像斯坦福兔子（Stanford Bunny）这样较大的模型则需要将近5秒。与上述前人的方法相比，本文提出的方法能够以更高的效率实现正确的\stc{}\vdl{}绘制。
+\autoref{tab:performance}展示了绘制\autoref{fig:basic}和\autoref{fig:comparison}所示结果的效率。需要指出的是，这些时间数据是在没有启用线条风格化的情况下记录的。在对比之下可以看出，Kim等人实现的系统\cite{kim2013stereoscopic}在使用GPU并且顶点数量达到30,000的情况下效率是每秒3帧。Bukenberger等人在他们的工作中实现了一个更高效的系统\cite{bukenberger2018stereo}，在使用CPU并且面片数达到20,000的情况下能够达到每秒24帧的效率，但是在他们的工作中没有提及使用GPU的情况。然而，这样的效率是他们在没有正确考虑视点相关的遮挡的情况下得到的。在他们的方法中，即使对于像犹他茶壶（Utah Teapot）这样只有2464面片的小模型，完整考虑视点相关遮挡所需要的视图算法也需要消耗0.25秒，而对于像斯坦福兔子（Stanford Bunny）这样较大的模型则需要将近5秒。与上述前人的方法相比，本文提出的方法能够以更高的效率实现正确的\stc{}\vdl{}绘制。

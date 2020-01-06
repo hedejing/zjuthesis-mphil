@@ -72,6 +72,7 @@
 \usepackage{amsmath}
 \usepackage{subfig}
 \usepackage{threeparttable}
+\usepackage{url}
 \graphicspath{{images/}}
 \bibliography{thesisbib.bib}
 
@@ -95,9 +96,9 @@
     \end{flushleft}
 }
 
-\DefineBibliographyStrings{english}{%
-    andothers = {等人}
-}
+% \DefineBibliographyStrings{english}{%
+%     andothers = {等人}
+% }
 
 \defbibheading{bibliography}[\bibname]{
     \chapternonum{#1}
@@ -113,7 +114,7 @@
 \def\subsubsectionautorefname   {小小节}
 
 \captionsetup[figure]{labelsep=space}
-\counterwithin*{figure}{section}
+\counterwithin*{figure}{chapter}
 \renewcommand{\thefigure}{\thechapter-\arabic{figure}}
 
 % \usepackage{tikz}
